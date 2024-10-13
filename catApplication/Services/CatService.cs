@@ -21,7 +21,6 @@ public class CatService : ICatService
     
     public async Task FetchAndSaveCatsAsync(int count)
     {
-        // Make HTTP request to fetch cat data
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
@@ -37,7 +36,6 @@ public class CatService : ICatService
 
         var responseContent = await response.Content.ReadAsStringAsync();
 
-        // First, parse the response into a dynamic object to handle the breeds extraction
         var rawCatDtos = JsonConvert.DeserializeObject<List<dynamic>>(responseContent);
 
         var catDtos = rawCatDtos.Select(cat => new CatDto

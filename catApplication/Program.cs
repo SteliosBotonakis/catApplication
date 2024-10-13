@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DatabaseContext>(options =>
@@ -19,15 +17,12 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cat API V1");
-        c.RoutePrefix = string.Empty; // To serve Swagger at the app's root (localhost:5000/)
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cat API V1");
+    c.RoutePrefix = string.Empty; // To serve Swagger at the app's root (localhost:8080/)
+});
 
 using (var scope = app.Services.CreateScope())
 {
