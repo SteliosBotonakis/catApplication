@@ -31,8 +31,15 @@ if (app.Environment.IsDevelopment())
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
-    db.Database.Migrate();
+    try
+    {
+        var db = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+        db.Database.Migrate();
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine($"An error occurred while migrating the database: {e.Message}");
+    }
 }
 
 app.UseHttpsRedirection();

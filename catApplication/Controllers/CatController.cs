@@ -10,12 +10,10 @@ namespace catApplication.Controllers;
 [Route("[controller]")]
 public class CatController : ControllerBase
 {
-    private readonly DatabaseContext _context;
     private readonly ICatService _catService;
 
-    public CatController(DatabaseContext context, ICatService catService)
+    public CatController(ICatService catService)
     {
-        _context = context;
         _catService = catService;
     }
     
@@ -47,7 +45,7 @@ public class CatController : ControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetCatById(int id)
+    public async Task<IActionResult> GetCatById(string id)
     {
         var cat = await _catService.GetCatByIdAsync(id);
 

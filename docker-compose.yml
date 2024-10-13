@@ -1,7 +1,8 @@
 services: 
     catapp:
       container_name: catapp
-      build: .
+      build:
+        context: ./catApplication
       ports:
         - "8080:8080"
       environment:
@@ -19,8 +20,8 @@ services:
         - SA_PASSWORD=Password123
       ports:
       - "1433:1433"
-      healthcheck:
-        test: [ "CMD", "sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Password123", "-Q", "SELECT 1" ]
-        interval: 10s
-        timeout: 10s
-        retries: 5
+#      healthcheck:
+#        test: [ "CMD", "sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Password123", "-Q", "SELECT 1" ]
+#        interval: 10s
+#        timeout: 10s
+#        retries: 5
